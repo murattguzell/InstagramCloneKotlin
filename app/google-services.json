@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1044622041717",
+    "project_id": "instagramkotlin-59fb2",
+    "storage_bucket": "instagramkotlin-59fb2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044622041717:android:f415716304102f75b50e3c",
+        "android_client_info": {
+          "package_name": "com.muratguzel.instakotlin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8Leao93GPUG3n_OvliLF0o-2cQF3Egw4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

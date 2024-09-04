@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">InstaKotlin</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="post">gönderi</string>
+    <string name="follower">takipçi</string>
+    <string name="follow_up">takip</string>
+    <string name="edit_profile">Protfili Düzenle</string>
+    <string name="settings">Ayarlar</string>
+    <string name="account_settings">Hesap Ayarları</string>
+    <string name="change_your_password">Şifreni Değiştir</string>
+    <string name="posts_you_liked">Beğendiğin Gönderiler</string>
+    <string name="saved">Kaydedilenler</string>
+    <string name="private_account">Gizli Hesap</string>
+    <string name="clear_search_history">Arama Geçmişini Temizle</string>
+    <string name="log_out">Çıkış Yap</string>
+    <string name="phone">Telefon</string>
+    <string name="e_posta">E-posta</string>
+    <string name="next">İleri</string>
+    <string name="phone_number_info">Telefon numarası +905554443322 formatında olmalıdır</string>
+    <string name="do_you_already_have_an_account">Hesabın zaten var mı?</string>
+    <string name="sign_in">Giriş Yap</string>
+    <string name="change_profile_picture">Fotoğrafı Değiştir"</string>
+    <string name="name">Ad</string>
+    <string name="user_name">Kullanıcı Adı</string>
+    <string name="biography">Biyografi</string>
+    <string name="web_site">İnternet Sitesi</string>
+
 </resources>

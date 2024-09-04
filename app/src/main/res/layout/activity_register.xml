@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login.RegisterActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loginRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_profile_logo"
+            app:civ_border_color="@color/siyah"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPhoneNumber"
+            style="@style/TVInputMethod"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/phone"
+            app:layout_constraintEnd_toStartOf="@+id/imgProfile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgProfile" />
+
+        <TextView
+            android:id="@+id/tvEposta"
+            style="@style/TVInputMethod"
+            android:layout_marginEnd="56dp"
+            android:text="@string/e_posta"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgProfile"
+            app:layout_constraintTop_toBottomOf="@+id/imgProfile" />
+
+        <View
+            android:id="@+id/viewLong"
+            style="@style/viewLong"
+            app:layout_constraintEnd_toEndOf="@+id/tvEposta"
+            app:layout_constraintStart_toStartOf="@+id/tvPhoneNumber"
+            app:layout_constraintTop_toTopOf="@+id/viewPhone" />
+
+        <View
+            android:id="@+id/viewEposta"
+            style="@style/viewChoice"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="40dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/tvEposta"
+            app:layout_constraintStart_toStartOf="@+id/tvEposta"
+            app:layout_constraintTop_toBottomOf="@+id/tvEposta" />
+
+        <View
+            android:id="@+id/viewPhone"
+            style="@style/viewChoice"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/tvPhoneNumber"
+            app:layout_constraintStart_toStartOf="@+id/tvPhoneNumber"
+            app:layout_constraintTop_toBottomOf="@+id/tvPhoneNumber" />
+
+        <EditText
+            android:id="@+id/etInputMethod"
+            style="@style/EtInput"
+            android:hint="@string/phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewLong" />
+
+        <Button
+            android:id="@+id/btnNext"
+            style="@style/ButtonNext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etInputMethod" />
+
+        <View
+            android:id="@+id/bottomNavigationMenuBorder"
+            style="@style/canopy"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/do_you_already_have_an_account"
+            app:layout_constraintEnd_toStartOf="@+id/tvSignIn"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bottomNavigationMenuBorder" />
+
+        <TextView
+            android:id="@+id/tvSignIn"
+            style="@style/TVSignIn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bottomNavigationMenuBorder" />
+
+        <TextView
+            android:id="@+id/tvPhoneNumberInfo"
+            style="@style/TVPhoneNumberInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnNext" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/loginContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

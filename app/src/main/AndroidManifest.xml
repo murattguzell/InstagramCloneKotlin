@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,13 +15,35 @@
         android:theme="@style/Theme.InstaKotlin"
         tools:targetApi="31">
         <activity
-            android:name=".HomeActivity"
-            android:exported="true">
+            android:name=".Login.RegisterActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Profile.ProfileSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Share.ShareActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Search.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Profile.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".News.NewsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Home.HomeActivity"
+            android:exported="false">
         </activity>
     </application>
 
