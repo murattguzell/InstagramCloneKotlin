@@ -59,4 +59,6 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
     implementation (libs.firebase.ui.auth)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation (libs.kotlinx.coroutines.android)
 }
