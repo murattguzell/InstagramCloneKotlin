@@ -10,8 +10,8 @@ import com.muratguzel.instakotlin.R
 import com.muratguzel.instakotlin.Search.SearchActivity
 import com.muratguzel.instakotlin.Share.ShareActivity
 
-class BottomNavigationHelper {
-    companion object {
+
+     object BottomNavigationHelper{
 
         fun setUpNavigation(context: Context, bottomNavigationView: BottomNavigationView) {
 
@@ -57,4 +57,3 @@ class BottomNavigationHelper {
             }
         }
     }
-}

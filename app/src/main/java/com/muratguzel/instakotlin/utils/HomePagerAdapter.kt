@@ -12,7 +12,7 @@ class HomePagerAdapter(homeActivity:HomeActivity) : FragmentStateAdapter(homeAct
     }
 
     override fun createFragment(position: Int): Fragment {
-        return mFragmentList.get(position)
+        return mFragmentList[position]
     }
     fun addFragment(fragment: Fragment){
         mFragmentList.add(fragment)

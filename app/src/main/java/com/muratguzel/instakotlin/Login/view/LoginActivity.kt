@@ -1,4 +1,4 @@
-package com.muratguzel.instakotlin.Login
+package com.muratguzel.instakotlin.Login.view
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
