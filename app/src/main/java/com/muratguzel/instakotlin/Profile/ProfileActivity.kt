@@ -2,24 +2,26 @@ package com.muratguzel.instakotlin.Profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.muratguzel.instakotlin.Home.CameraFragment
-import com.muratguzel.instakotlin.Home.HomeFragment
-import com.muratguzel.instakotlin.Home.MessagesFragment
+import com.muratguzel.foodguide.util.imageDownload
+import com.muratguzel.foodguide.util.placeHolderCreate
+import com.muratguzel.instakotlin.Login.viewmodel.AuthViewModel
 import com.muratguzel.instakotlin.R
 import com.muratguzel.instakotlin.databinding.ActivityProfileBinding
 import com.muratguzel.instakotlin.utils.BottomNavigationHelper
-import com.muratguzel.instakotlin.utils.HomePagerAdapter
+
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
     private val ACTIVITY_NO = 4
     private val TAG = "ProfileActivity"
-
+    val viewModel : AuthViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
@@ -31,6 +33,7 @@ class ProfileActivity : AppCompatActivity() {
             insets
         }
         setUpToolBar()
+        setTextData()
         setUpBottomNavigationView()
         handleBackPress()
         binding.tvEditProfile.setOnClickListener {
@@ -59,6 +62,35 @@ class ProfileActivity : AppCompatActivity() {
             val intent = Intent(this, ProfileSettingActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
+        }
+    }
+
+
+    private fun setTextData(){
+        viewModel.userGetData()
+        viewModel.userGetData.observe(this){userGetData->
+            if (userGetData!=null){
+                binding.tvUserNameToolBar.text = userGetData.userName
+                binding.tvUserName.text = userGetData.nameAndSurName
+                binding.tvPostNumber.text = userGetData.usersDetail!!.post
+                binding.tvFollowerNumber.text = userGetData.usersDetail!!.follower
+                binding.tvFollowUpNumber.text = userGetData.usersDetail!!.following
+                binding.tvBiografi.text = userGetData.usersDetail!!.biograpyh
+                binding.tvWebsite.text = userGetData.usersDetail!!.website
+                val imgUrl:String = userGetData.usersDetail!!.profileImage!!
+                Log.e("ProfileAcivity","$imgUrl")
+                binding.circleImage.imageDownload(imgUrl,
+                    placeHolderCreate(this))
+
+                if (userGetData.usersDetail!!.biograpyh!= null){
+                    binding.tvBiografi.visibility = View.VISIBLE
+                    binding.tvBiografi.text = userGetData.usersDetail!!.biograpyh
+                }
+                if (userGetData.usersDetail!!.website!= null){
+                    binding.tvWebsite.visibility = View.VISIBLE
+                    binding.tvWebsite.text = userGetData.usersDetail!!.website
+                }
+            }
         }
     }
 

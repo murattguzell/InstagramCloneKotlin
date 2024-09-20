@@ -1,16 +1,20 @@
 package com.muratguzel.instakotlin.Login.view
 
 import SetUpBtnBackgroundViewUtil
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
-import com.muratguzel.instakotlin.Login.viewmodel.RegisterViewModel
+import com.muratguzel.instakotlin.Login.viewmodel.AuthViewModel
 import com.muratguzel.instakotlin.R
 import com.muratguzel.instakotlin.databinding.ActivityRegisterBinding
 import com.muratguzel.instakotlin.utils.FragmentUtil
@@ -20,7 +24,7 @@ import com.muratguzel.instakotlin.utils.ValidationUtil.isValidPhoneNumber
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
-    val viewModel: RegisterViewModel by viewModels()
+    val viewModel: AuthViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -31,8 +35,14 @@ class RegisterActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         init()
         handleBackPress()
+        binding.tvSignIn.setOnClickListener {
+            val intent  = Intent(this,LoginActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun init() {
@@ -61,22 +71,30 @@ class RegisterActivity : AppCompatActivity() {
         binding.btnNext.setOnClickListener {
             if (binding.etInputMethod.hint.equals("Telefon")) {
                 if (isValidPhoneNumber(binding.etInputMethod.text.toString())) {
-                    binding.loginRoot.visibility = View.GONE
-                    binding.loginContainer.visibility = View.VISIBLE
-                    FragmentUtil.replaceFragment(
-                        supportFragmentManager,
-                        R.id.loginContainer,
-                        PhoneCodeEnterFragment(),
-                        true,
-                        "PhoneCodeEnterFragment"
-                    )
-                    viewModel.emailKayit.value = false
-                    viewModel.updateData(
-                        binding.etInputMethod.text.toString(),
-                        email = null,
-                        verificationId = null,
-                        code = null,
-                    )
+                    viewModel.phoneControl(binding.etInputMethod.text.toString())
+                    viewModel.phoneUsage.observe(this, Observer { phoneUsage ->
+                        if (phoneUsage) {
+                            Toast.makeText(this, "Telefon Kullanılıyor", Toast.LENGTH_SHORT).show()
+                        } else {
+
+                            binding.loginRoot.visibility = View.GONE
+                            binding.loginContainer.visibility = View.VISIBLE
+                            FragmentUtil.replaceFragment(
+                                supportFragmentManager,
+                                R.id.loginContainer,
+                                RegisterFragment(),
+                                true,
+                                "PhoneCodeEnterFragment"
+                            )
+                            viewModel.emailKayit.value = false
+                            viewModel.updateData(
+                                binding.etInputMethod.text.toString(),
+                                email = null,
+                                verificationId = null,
+                                code = null,
+                            )
+                        }
+                    })
                 } else {
                     Snackbar.make(
                         binding.btnNext,
@@ -88,30 +106,38 @@ class RegisterActivity : AppCompatActivity() {
             } else {
                 //email
                 if (isValidEmail(binding.etInputMethod.text.toString())) {
-                    binding.loginRoot.visibility = View.GONE
-                    binding.loginContainer.visibility = View.VISIBLE
-                    FragmentUtil.replaceFragment(
-                        supportFragmentManager,
-                        R.id.loginContainer,
-                        RegisterFragment(),
-                        true,
-                        "EmailLoginProcessFragment"
-                    )
-                    viewModel.emailKayit.value = true
-                    viewModel.updateData(
-                        phoneNumber = null,
-                        email = binding.etInputMethod.text.toString(),
-                        verificationId = null,
-                        code = null,
-                    )
-                } else {
+                    viewModel.emailControl(binding.etInputMethod.text.toString())
+                    viewModel.emailUsage.observe(this, Observer { isEmailUsed ->
+                        Log.d("EmailObserver", "Observer tetiklendi: $isEmailUsed")
+                        if (isEmailUsed) {
+                            Toast.makeText(this, "Email Kullanılıyor", Toast.LENGTH_SHORT).show()
+                        } else {
+                            binding.loginRoot.visibility = View.GONE
+                            binding.loginContainer.visibility = View.VISIBLE
+
+                            FragmentUtil.replaceFragment(
+                                supportFragmentManager,
+                                R.id.loginContainer,
+                                RegisterFragment(),
+                                true,
+                                "EmailLoginProcessFragment"
+                            )
+                            viewModel.emailKayit.value = true
+                            viewModel.updateData(
+                                phoneNumber = null,
+                                email = binding.etInputMethod.text.toString(),
+                                verificationId = null,
+                                code = null
+                            )
+                        }
+                    })
+                }else {
                     Snackbar.make(
                         binding.btnNext,
-                        "Lütfen geçerli bir e-posta adresi giriniz",
+                        "Lütfen geçerli bir email adresi giriniz",
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
-
             }
         }
     }
@@ -132,6 +158,5 @@ class RegisterActivity : AppCompatActivity() {
             binding.etInputMethod.setText("")
         }
     }
-
 }
 

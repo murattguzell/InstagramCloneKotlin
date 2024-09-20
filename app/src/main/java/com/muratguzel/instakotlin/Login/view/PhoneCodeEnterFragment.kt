@@ -1,6 +1,5 @@
 package com.muratguzel.instakotlin.Login.view
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,23 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.FirebaseException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.muratguzel.instakotlin.Login.viewmodel.RegisterViewModel
+import com.muratguzel.instakotlin.Login.viewmodel.AuthViewModel
 import com.muratguzel.instakotlin.R
 import com.muratguzel.instakotlin.databinding.FragmentPhoneCodeEnterBinding
 import com.muratguzel.instakotlin.utils.FragmentUtil
-import java.util.concurrent.TimeUnit
 
 class PhoneCodeEnterFragment : Fragment() {
     private var _binding: FragmentPhoneCodeEnterBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: RegisterViewModel
+    private lateinit var viewModel: AuthViewModel
 
 
 
@@ -40,7 +32,7 @@ class PhoneCodeEnterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.pbTelNoOnayla.visibility = View.INVISIBLE
-        viewModel = ViewModelProvider(requireActivity())[RegisterViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[AuthViewModel::class.java]
 
         observeLiveData()
 
@@ -66,6 +58,13 @@ class PhoneCodeEnterFragment : Fragment() {
                     "RegisterFragment"
                 )
 
+            }
+            viewModel.phoneCodeProgreesBar.observe(viewLifecycleOwner){loading->
+                if(loading){
+                    binding.pbTelNoOnayla.visibility = View.VISIBLE
+                }else{
+                    binding.pbTelNoOnayla.visibility = View.INVISIBLE
+                }
             }
         }
 

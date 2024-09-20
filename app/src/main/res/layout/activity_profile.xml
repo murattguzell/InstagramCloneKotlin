@@ -73,7 +73,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ProfileToolBar" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleProfileImage"
+            android:id="@+id/circleImage"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_marginStart="16dp"
@@ -94,8 +94,8 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/tvFollowerNumber"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/circleProfileImage"
-            app:layout_constraintTop_toTopOf="@+id/circleProfileImage" />
+            app:layout_constraintStart_toEndOf="@+id/circleImage"
+            app:layout_constraintTop_toTopOf="@+id/circleImage" />
 
         <TextView
             android:id="@+id/tvFollowerNumber"
@@ -108,7 +108,7 @@
             app:layout_constraintEnd_toStartOf="@+id/tvFollowUpNumber"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tvPostNumber"
-            app:layout_constraintTop_toTopOf="@+id/circleProfileImage" />
+            app:layout_constraintTop_toTopOf="@+id/circleImage" />
 
         <TextView
             android:id="@+id/tvFollowUpNumber"
@@ -121,7 +121,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tvFollowerNumber"
-            app:layout_constraintTop_toTopOf="@+id/circleProfileImage" />
+            app:layout_constraintTop_toTopOf="@+id/circleImage" />
 
         <TextView
             android:id="@+id/tvPost"
@@ -150,22 +150,32 @@
         <TextView
             android:id="@+id/tvEditProfile"
             style="@style/TvEditProfile"
-            app:layout_constraintBottom_toBottomOf="@+id/circleProfileImage"
+            app:layout_constraintBottom_toBottomOf="@+id/circleImage"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/circleProfileImage" />
+            app:layout_constraintStart_toEndOf="@+id/circleImage" />
 
         <TextView
             android:id="@+id/tvUserName"
             style="@style/ProfileTvUserInformation"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/circleProfileImage" />
+            app:layout_constraintTop_toBottomOf="@+id/circleImage" />
 
         <TextView
             android:id="@+id/tvBiografi"
             style="@style/ProfileTvUserInformation"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+            app:layout_constraintTop_toBottomOf="@+id/tvUserName"
+            tools:visibility="gone" />
 
+        <TextView
+            android:id="@+id/tvWebsite"
+            style="@style/ProfileTvUserInformation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/tvBiografi"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBiografi"
+            tools:visibility="gone" />
         <View
             android:id="@+id/bottomView"
             style="@style/canopy"
@@ -190,7 +200,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="invisible">
+
 
     </FrameLayout>
 

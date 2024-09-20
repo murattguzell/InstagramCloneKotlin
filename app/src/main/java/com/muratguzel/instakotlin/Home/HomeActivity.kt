@@ -25,7 +25,6 @@ class HomeActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         setUpBottomNavigationView()
         setUpViewPager()
     }
@@ -42,6 +41,6 @@ class HomeActivity : AppCompatActivity() {
         homePagerAdapter.addFragment(HomeFragment())
         homePagerAdapter.addFragment(MessagesFragment())
         binding.homeViewPager.adapter = homePagerAdapter
-        binding.homeViewPager.currentItem = 1
+        binding.homeViewPager.setCurrentItem(1,false)
     }
 }

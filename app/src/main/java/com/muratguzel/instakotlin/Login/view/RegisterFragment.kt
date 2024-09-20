@@ -1,37 +1,36 @@
 package com.muratguzel.instakotlin.Login.view
 
 import SetUpBtnBackgroundViewUtil
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.muratguzel.instakotlin.Login.viewmodel.RegisterViewModel
+import com.muratguzel.instakotlin.Home.HomeActivity
+import com.muratguzel.instakotlin.Login.viewmodel.AuthViewModel
 import com.muratguzel.instakotlin.databinding.FragmentRegisterBinding
 
 class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: RegisterViewModel
+    private lateinit var viewModel: AuthViewModel
     var gettelNo = ""
     var getverificationID = ""
     var getemail = ""
     var getcode = ""
     var emailclick = false
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var mRef: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mAuth = Firebase.auth
-        mRef = Firebase.database.reference
     }
 
     override fun onCreateView(
@@ -49,28 +48,54 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity())[RegisterViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[AuthViewModel::class.java]
         observeLiveData()
 
+        binding.tvSignIn.setOnClickListener {
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity (intent)
+        }
         binding.btnNextRegisterFragment.setOnClickListener {
-            //kullanici email ile kayıt oluyor
-            if (emailclick) {
-                Log.d("RegisterFragment", "Email kayıt durumu: $getemail")
-                var email = getemail
-                var password = binding.etPassword.text.toString()
-                Log.d("RegisterFragment", "şifre $password")
-                viewModel.registerEmail(email, password)
-            } else {
-                //kullanıcı telefonuyla kayıt oluyor
-                var fakeEmail = "$gettelNo@gmail.com"
-                var password = binding.etPassword.text.toString()
-                Log.d("RegisterFragment", "şifre $password")
-                viewModel.registerPhone(fakeEmail, password)
+
+            viewModel.userNameControl(binding.etUserName.text.toString())
+            viewModel.userNameUsage.observe(viewLifecycleOwner) { userNameUsage ->
+                if (userNameUsage) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Kullanıcı adı kullanılıyor",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    //kullanici email ile kayıt oluyor
+                    if (emailclick) {
+                        Log.d("RegisterFragment", "Email kayıt durumu: $getemail")
+                        var userName = binding.etUserName.text.toString()
+                        var nameAndSurName = binding.etNameAndSurName.text.toString()
+                        var email = getemail
+                        var password = binding.etPassword.text.toString()
+                        Log.d("RegisterFragment", "şifre $password")
+                        viewModel.registerEmail(email, password, userName, nameAndSurName)
+                    } else {
+                        //kullanıcı telefonuyla kayıt oluyor
+                        var fakeEmail = "$gettelNo@gmail.com"
+                        var userName = binding.etUserName.text.toString()
+                        var nameAndSurName = binding.etNameAndSurName.text.toString()
+                        var password = binding.etPassword.text.toString()
+                        Log.d("RegisterFragment", "şifre $password")
+                        viewModel.registerPhone(fakeEmail, password, userName, nameAndSurName)
+                    }
+
+
+                }
             }
         }
-
         SetUpBtnBackgroundViewUtil.setUpOnTextChange(binding, requireContext())
+
+
     }
+
 
     private fun observeLiveData() {
         viewModel.emailKayit.observe(viewLifecycleOwner) { emailKayit ->
@@ -112,6 +137,10 @@ class RegisterFragment : Fragment() {
         }
         viewModel.registerStatus.observe(viewLifecycleOwner) { registerStatus ->
             if (registerStatus) {
+                val intent = Intent(requireActivity(),HomeActivity::class.java)
+                requireActivity().finish()
+                startActivity(intent)
+                requireActivity().overridePendingTransition(0,0)
                 Snackbar.make(
                     binding.btnNextRegisterFragment,
                     "Kayıt Başarılı",
@@ -125,6 +154,13 @@ class RegisterFragment : Fragment() {
                 ).show()
             }
 
+        }
+        viewModel.progressBar.observe(viewLifecycleOwner) { loading ->
+            if (loading) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.GONE
+            }
         }
 
     }

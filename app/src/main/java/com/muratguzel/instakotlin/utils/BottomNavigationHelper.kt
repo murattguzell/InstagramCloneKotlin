@@ -18,36 +18,31 @@ import com.muratguzel.instakotlin.Share.ShareActivity
             bottomNavigationView.setOnItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.ic_home -> {
-                        val intent = Intent(context, HomeActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        val intent = Intent(context, HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         context.startActivity(intent)
                         true
                     }
 
                     R.id.ic_search -> {
-                        val intent = Intent(context, SearchActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        val intent = Intent(context, SearchActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         context.startActivity(intent)
                         true
                     }
 
                     R.id.ic_share -> {
-                        val intent = Intent(context, ShareActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        val intent = Intent(context, ShareActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         context.startActivity(intent)
                         true
                     }
 
                     R.id.ic_news -> {
-                        val intent = Intent(context, NewsActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        val intent = Intent(context, NewsActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         context.startActivity(intent)
                         true
                     }
 
                     R.id.ic_profile -> {
-                        val intent = Intent(context, ProfileActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        val intent = Intent(context, ProfileActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                         context.startActivity(intent)
                         true // Return true to indicate that the item selection has been handled
                     }

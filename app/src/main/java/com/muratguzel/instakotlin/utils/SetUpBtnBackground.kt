@@ -2,11 +2,10 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.viewbinding.ViewBinding
-import com.muratguzel.instakotlin.Login.view.RegisterFragment
 import com.muratguzel.instakotlin.R
+import com.muratguzel.instakotlin.databinding.ActivityLoginBinding
 import com.muratguzel.instakotlin.databinding.ActivityRegisterBinding
 import com.muratguzel.instakotlin.databinding.FragmentRegisterBinding
 
@@ -33,21 +32,45 @@ object SetUpBtnBackgroundViewUtil {
                         R.color.sonukmavi
                     )
                 )
+                btnNextRegisterFragment.setBackgroundResource(R.drawable.register_button)
+            }
+        } else if (binding is ActivityLoginBinding) {
+            binding.apply {
+                btnSignIn.isEnabled = false
+                btnSignIn.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.sonukmavi
+                    )
+                )
+                btnSignIn.setBackgroundResource(R.drawable.register_button)
             }
         }
     }
 
     fun setUpOnTextChange(binding: ViewBinding, context: Context) {
-        if (binding is FragmentRegisterBinding)
+        if (binding is FragmentRegisterBinding){
+
+
             binding.apply {
 
-                 var watcher: TextWatcher = object : TextWatcher {
-                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                val watcher = object : TextWatcher {
+                    override fun beforeTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
                         Log.d("RegisterFragment", "beforeTextChanged called")
 
                     }
 
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    override fun onTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
                         if (s!!.length > 5) {
                             if (binding.etNameAndSurName.text.toString().length > 5 && binding.etUserName.text.toString().length > 5 && binding.etPassword.text.toString().length > 5) {
                                 binding.btnNextRegisterFragment.isEnabled = true
@@ -59,19 +82,14 @@ object SetUpBtnBackgroundViewUtil {
                                 )
                                 binding.btnNextRegisterFragment.setBackgroundResource(R.drawable.register_button_active)
                             } else {
-                                SetUpBtnBackgroundViewUtil.setUpViewBackground(binding,context)
+                              setUpViewBackground(binding, context)
 
                             }
 
                         } else {
-                            binding.btnNextRegisterFragment.isEnabled = false
-                            binding.btnNextRegisterFragment.setTextColor(
-                                ContextCompat.getColor(
-                                    context,
-                                    R.color.sonukmavi
-                                )
-                            )
-                            SetUpBtnBackgroundViewUtil.setUpViewBackground(binding,context)            }
+
+                            setUpViewBackground(binding, context)
+                        }
                     }
 
                     override fun afterTextChanged(s: Editable?) {
@@ -84,5 +102,55 @@ object SetUpBtnBackgroundViewUtil {
                 binding.etPassword.addTextChangedListener(watcher)
 
             }
+        } else if (binding is ActivityLoginBinding) {
+            binding.apply {
+                val watcher = object : TextWatcher {
+                    override fun beforeTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
+                        Log.d("RegisterFragment", "beforeTextChanged called")
+
+                    }
+
+                    override fun onTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
+                        if (s!!.length > 5) {
+                            if (binding.etEmailTelorUserName.text.toString().length > 5 && binding.etSignInPassword.text.toString().length > 5) {
+                                binding.btnSignIn.isEnabled = true
+                                binding.btnSignIn.setTextColor(
+                                    ContextCompat.getColor(
+                                        context,
+                                        R.color.beyaz
+                                    )
+                                )
+                                binding.btnSignIn.setBackgroundResource(R.drawable.register_button_active)
+                            } else {
+                                setUpViewBackground(binding, context)
+
+                            }
+
+                        } else {
+
+                            setUpViewBackground(binding, context)
+                        }
+                    }
+
+                    override fun afterTextChanged(s: Editable?) {
+                        Log.d("RegisterFragment", "afterTextChanged called")
+
+                    }
+
+                }
+                binding.etEmailTelorUserName.addTextChangedListener(watcher)
+                binding.etSignInPassword.addTextChangedListener(watcher)
+            }
+        }
     }
 }

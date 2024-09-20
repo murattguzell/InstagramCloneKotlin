@@ -6,7 +6,9 @@
         <item name="android:statusBarColor">#f0f0f0</item>
         <item name="android:windowLightStatusBar">true</item>
 
+
     </style>
+
 
     <style name="Theme.InstaKotlin" parent="Base.Theme.InstaKotlin" />
 

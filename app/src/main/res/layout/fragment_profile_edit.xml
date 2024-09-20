@@ -50,6 +50,7 @@
                         app:layout_constraintTop_toTopOf="@+id/imgClose" />
 
                     <ImageView
+                        android:id="@+id/savedCahnged"
                         style="@style/Icon"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
@@ -88,14 +89,14 @@
             tools:context=".Profile.ProfileEditFragment">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/circleProfileImage"
+                android:id="@+id/circleImageFragment"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
+                android:src="@drawable/ic_profile"
+                app:civ_border_color="@color/golgelik"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:src="@drawable/ic_profile"
-                app:civ_border_color="@color/golgelik"
                 app:civ_border_width="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +107,7 @@
                 style="@style/TVChangeProfileFoto"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/circleProfileImage" />
+                app:layout_constraintTop_toBottomOf="@+id/circleImageFragment" />
 
             <TextView
                 android:id="@+id/tvName"
